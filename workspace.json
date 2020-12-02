@@ -1,7 +1,63 @@
 {
   "version": 1,
-  "projects": {},
+  "projects": {
+    "twenty-twenty": {
+      "root": "apps/twenty-twenty",
+      "sourceRoot": "apps/twenty-twenty/src",
+      "projectType": "application",
+      "prefix": "twenty-twenty",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/twenty-twenty",
+            "main": "apps/twenty-twenty/src/main.ts",
+            "tsConfig": "apps/twenty-twenty/tsconfig.app.json",
+            "assets": [{
+              "glob": "**/*.txt",
+              "input": "apps/twenty-twenty/src/app/",
+              "output": ""
+            }]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/twenty-twenty/src/environments/environment.ts",
+                  "with": "apps/twenty-twenty/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "twenty-twenty:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/twenty-twenty/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/twenty-twenty/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/node"
+  },
+  "defaultProject": "twenty-twenty"
 }
