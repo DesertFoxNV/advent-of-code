@@ -1,4 +1,4 @@
-interface RegExpArrayWPuzzle1Group extends RegExpExecArray {
+interface RegExpArrayDay2Puzzle1 extends RegExpExecArray {
   groups: {
     min: string;
     max: string;
@@ -7,7 +7,7 @@ interface RegExpArrayWPuzzle1Group extends RegExpExecArray {
   }
 }
 
-interface RegExpArrayWPuzzle2Group extends RegExpExecArray {
+interface RegExpArrayDay2Puzzle2 extends RegExpExecArray {
   groups: {
     pos1: string;
     pos2: string;

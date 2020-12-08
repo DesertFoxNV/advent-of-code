@@ -11,7 +11,7 @@ export class Day2 {
 
   static puzzle1() {
     return Day2.parsePasswords().reduce((total, pwd) => {
-      const { groups: { min, max, char, password } } = REG_EXP_PWD_PUZZLE_1.exec(pwd) as RegExpArrayWPuzzle1Group;
+      const { groups: { min, max, char, password } } = REG_EXP_PWD_PUZZLE_1.exec(pwd) as RegExpArrayDay2Puzzle1;
       const count = password.split('').filter(v => v === char).length;
       return count >= +min && count <= +max ? total + 1 : total;
     }, 0);
@@ -19,10 +19,10 @@ export class Day2 {
 
   static puzzle2() {
     return Day2.parsePasswords().reduce((total, pwd) => {
-      const { groups: { pos1, pos2, char, password } } = REG_EXP_PWD_PUZZLE_2.exec(pwd) as RegExpArrayWPuzzle2Group;
+      const { groups: { pos1, pos2, char, password } } = REG_EXP_PWD_PUZZLE_2.exec(pwd) as RegExpArrayDay2Puzzle2;
       const pos1Valid = char === password[+pos1 - 1];
       const pos2Valid = char === password[+pos2 - 1];
-      return (pos1Valid || pos2Valid) && !(pos1Valid && pos2Valid) ? total + 1 : total;
+      return pos1Valid !== pos2Valid ? total + 1 : total;
     }, 0);
   }
 }
