@@ -4,7 +4,7 @@ const RE_EYR = /(?:eyr:(?<eyr>\d{4}))/;
 const RE_HGT = /(?:hgt:(?<hgt>\w+))/;
 const RE_HCL = /(?:hcl:(?<hcl>#[0-9a-f]{6}))/;
 const RE_ECL = /(?:ecl:(?<ecl>amb|blu|brn|gry|grn|hzl|oth))/;
-const RE_PID = /(?:pid:(?<pid>\d{9}))/;
+const RE_PID = /(?:pid:(?<pid>\d+))/;
 
 export const RE_LIST = [
   RE_BYR,
@@ -22,7 +22,6 @@ export const VALIDATORS: { [key: string]: (PassportData) => boolean } = {
   byr: ({ byr }) => +byr >= 1920 && +byr <= 2002,
   iyr: ({ iyr }) => +iyr >= 2010 && +iyr <= 2020,
   eyr: ({ eyr }) => +eyr >= 2020 && +eyr <= 2030,
-  req: (data) => KEYS.every(key => data[key] !== undefined),
   hgt: ({ hgt }) => {
     const groups = (/(?<value>\d+)(?<units>cm|in)/.exec(hgt) as HgtExecArray)?.groups;
     if (!groups) return false;
@@ -32,7 +31,10 @@ export const VALIDATORS: { [key: string]: (PassportData) => boolean } = {
     } else {
       return +value >= 59 && +value <= 76;
     }
-  }
+  },
+  hcl: ({ hcl }) => /^#[0-9a-f]{6}$/.test(hcl),
+  ecl: ({ ecl }) => ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth'].includes(ecl),
+  pid: ({ pid }) => pid?.length === 9
 };
 
 export const VALIDATOR_VALUES = Object.values(VALIDATORS);
