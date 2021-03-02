@@ -47,7 +47,7 @@ export class Titration {
       await new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve();
-        }, 3000)
+        }, 100)
       })
       const isConcGreater = this.nacnGramsPerLiter > this.nacnGramsPerLiterTest;
       console.log(chalk[isConcGreater ? 'green' : 'red'](
